@@ -1,0 +1,11 @@
+.modal-body p {
+  margin-bottom: 15px;
+}
+
+.modal-body ul {
+  padding-left: 0;
+}
+
+.modal-body .list-group-item {
+  border: none;
+}

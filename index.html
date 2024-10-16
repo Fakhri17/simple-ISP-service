@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>USSD Modal with Input</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container mt-5">
+    <div class="mb-3">
+      <label for="ussdInput" class="form-label">Enter USSD Code</label>
+      <input type="text" id="ussdInput" class="form-control" placeholder="input" value="*858#">
+    </div>
+    <button type="button" class="btn btn-primary" id="checkCodeBtn">Submit</button>
+  </div>
+
+  <!-- List Auto TP Modal -->
+  <div class="modal fade" id="modal5Modal" tabindex="-1" aria-labelledby="modal5ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modal5ModalLabel">List Auto TP</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">No</th>
+                <th scope="col">Nomor Auto TP</th>
+                <th scope="col">Jumlah Auto TP</th>
+                <th scope="col">Periode</th>
+              </tr>
+            </thead>
+            <tbody id="autoTPList">
+               <tr>
+                <th scope="row">1</th>
+                <td>08123456789</td>
+                <td>1000</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>081231231</td>
+                <td>2000</td>
+                <td>2</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Cek Kupon Undian TP Modal -->
+  <div class="modal fade" id="cekKuponModal" tabindex="-1" aria-labelledby="cekKuponModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="cekKuponModalLabel">Cek Kupon Undian TP</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="cekKuponForm">
+            <div class="mb-3">
+              <label for="cekKuponNumber" class="form-label">Nomor Kupon</label>
+              <input type="text" class="form-control" id="cekKuponNumber" placeholder="Masukkan nomor kupon">
+            </div>
+            <button type="submit" class="btn btn-primary">Cek Kupon</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Main USSD Modal -->
+  <div class="modal fade" id="ussdModal" tabindex="-1" aria-labelledby="ussdModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ussdModalLabel">USSD Menu</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Mau iPhone 15Plus dr Saskia Chadwick?<br>Hub *500*117#</p>
+          <ul class="list-group">
+            <li class="list-group-item">1. Transfer Pulsa</li>
+            <li class="list-group-item">2. Minta Pulsa</li>
+            <li class="list-group-item">3. Auto TP</li>
+            <li class="list-group-item">4. Delete Auto TP</li>
+            <li class="list-group-item">5. List Auto TP</li>
+            <li class="list-group-item">6. Cek Kupon Undian TP</li>
+          </ul>
+          <div class="mt-3">
+            <input type="number" id="userInput" class="form-control" placeholder="Enter your choice">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" id="sendBtn">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Transfer Pulsa Modal -->
+  <div class="modal fade" id="transferModal" tabindex="-1" aria-labelledby="transferModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="transferModalLabel">Transfer Pulsa</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="transferPulsaForm">
+          <div class="modal-body">
+
+            <div class="mb-3">
+              <label for="nomorPenerima" class="form-label">Nomor Penerima</label>
+              <input type="text" class="form-control" id="nomorPenerima" placeholder="Masukkan nomor penerima" required>
+            </div>
+            <div class="mb-3">
+              <label for="jumlahPulsa" class="form-label">Jumlah Pulsa</label>
+              <input type="number" class="form-control" id="jumlahPulsa" placeholder="Masukkan jumlah pulsa" required>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Kirim Pulsa</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Minta Pulsa Modal -->
+  <div class="modal fade" id="mintaPulsaModal" tabindex="-1" aria-labelledby="mintaPulsaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="mintaPulsaModalLabel">Minta Pulsa</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="requestPulsaForm">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="nomorPenerima" class="form-label">Nomor Penerima</label>
+              <input type="text" class="form-control" id="nomorPenerimaMinta" placeholder="Masukkan nomor penerima"
+                required>
+            </div>
+            <div class="mb-3">
+              <label for="jumlahPulsa" class="form-label">Jumlah Pulsa</label>
+              <input type="number" class="form-control" id="jumlahPulsaMinta" placeholder="Masukkan jumlah pulsa"
+                required>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Minta Pulsa</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Auto TP Modal -->
+  <div class="modal fade" id="autoTPModal" tabindex="-1" aria-labelledby="autoTPModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="autoTPModalLabel">Auto TP</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="autoTPForm">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="autoTPNumber" class="form-label">Nomor Auto TP</label>
+              <input type="text" class="form-control" id="autoTPNumber" placeholder="">
+            </div>
+            <div class="mb-3">
+              <label for="autoTPAmount" class="form-label">Jumlah Auto TP</label>
+              <input type="number" class="form-control" id="autoTPAmount" placeholder="">
+            </div>
+            <div class="mb-3">
+              <label for="autoTPInterval" class="form-label">Periode</label>
+              <input type="number" class="form-control" id="autoTPInterval" placeholder="">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Kirim</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Auto TP Modal -->
+  <div class="modal fade" id="deleteAutoTPModal" tabindex="-1" aria-labelledby="deleteAutoTPModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteTPModalLabel">Delete Auto TP</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="deleteTPForm">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="autoTPNumber" class="form-label">Nomor Auto TP</label>
+              <input type="text" class="form-control" id="deleteTPNumber" placeholder="">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
